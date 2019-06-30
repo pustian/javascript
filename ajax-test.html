@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ajax-test</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"> </script>
+	<script type="text/javascript">
+		function test_name() {
+			$.ajax({
+				type: "GET",      //data 传送数据类型。post 传递
+	      		url: "http://192.168.43.26:8080/test/name",  // yii 控制器/方法
+	      		cache: false,      
+	      		data: {"name": "abc"},  //传送的数据
+	      		dataType: 'json',  // 返回数据的数据类型json
+	      		error:function(){
+	         		alert("数据传输错误");
+	      		},success: function (data) {
+	         		console.log(data.errCode);
+	         		console.log(data.errMsg);
+	         		for (var i = data.data.length - 1; i >= 0; i--) {
+	         			console.log(data.data[i])
+	         			console.log(data.data[i].id);
+	      				console.log(data.data[i].name);
+	         		}
+	      		}
+			});
+		}
+		function test_save() {
+			var post_data = JSON.stringify({
+				  "address": "string",
+				  "birthday": "2019-02-19",
+				  "height": 1,
+				  "id": 2,
+				  "name": "string1"
+				});
+			$.ajax({
+				type: "POST",      //data 传送数据类型。post 传递
+	      		url: "http://192.168.43.26:8080/test/save",  // yii 控制器/方法   
+	      		contentType: 'application/json;charset=UTF-8',
+	      		cache: false,   
+	      		data: post_data,  //传送的数据
+	      		dataType: 'json',  // 返回数据的数据类型json
+	      		error:function(){
+	         		alert("数据传输错误");
+	      		},success: function (data) {
+	         		console.log(data.errCode);
+	         		console.log(data.errMsg);
+	         		console.log(data.data);
+	      		}
+			});
+		}
+		//  JSON.stringify @RequestBody作为接收参数
+		function test_community() {	
+			var post_data = JSON.stringify({
+					"communityId":"S012"
+				});
+			$.ajax({
+				type: "POST",      //data 传送数据类型。post 传递
+	      		url: "http://192.168.43.26:8080/v1/camera/comunity/camerasList",  // yii 控制器/方法   
+	      		contentType: 'application/json;charset=UTF-8',
+	      		cache: false,   
+	      		data: post_data,  //传送的数据
+	      		dataType: 'json',  // 返回数据的数据类型json
+	      		error:function(){
+	         		alert("数据传输错误");
+	      		},success: function (data) {
+	         		// console.log(data.errCode);
+	         		// console.log(data.errMsg);
+	         		// console.log(data.data);
+	         		console.log(data);
+	      		}
+			});
+		} 
+		//  JSON.stringify @RequestParam作为接收参数
+		function test_community_list() {	
+			var post_data = {
+					"pageIndex":"1",
+					"pageSize":"20"
+				};
+			$.ajax({
+				type: "POST",      //data 传送数据类型。post 传递
+	      		url: "http://localhost:8090/v1/communities/list",  // yii 控制器/方法   
+	      		contentType: 'application/json;charset=UTF-8',
+	      		cache: false,   
+	      		data: post_data,  //传送的数据
+	      		dataType: 'json',  // 返回数据的数据类型json
+	      		error:function(){
+	         		alert("数据传输错误");
+	      		},success: function (data) {
+	         		// console.log(data.errCode);
+	         		// console.log(data.errMsg);
+	         		// console.log(data.data);
+	         		console.log(data);
+	      		}
+			});
+		} 
+
+		//  JSON.stringify @RequestParam作为接收参数
+		function test_bus() {	
+			$.ajax({
+				type: "GET",      //data 传送数据类型。post 传递
+	      		url: "http://localhost:8082/v2/busstop",  // yii 控制器/方法
+	      		cache: false,      
+	      		// data: {"name": "abc"},  //传送的数据
+	      		dataType: 'json',  // 返回数据的数据类型json
+	      		error:function(){
+	         		alert("数据传输错误");
+	      		},success: function (data) {
+	         		console.log(data.length);
+	         		for (var i = data.length - 1; i >= 0; i--) {
+	         			console.log(data[i].id);
+	         			data[i].id
+	         		}
+	      		}
+			});
+		} 
+
+
+					
+	</script>
+</head>
+<body>
+	<h3 >请点击下面的按钮，通过 jQuery AJAX 改变这段文本。</h3>
+	<button id="test_bus" onclick="test_bus()">test_bus</button> <br />
+	
+	<button id="test_name" onclick="test_name()">test_name</button> <br />
+	<button id="test_save" onclick="test_save()">test_save</button> <br />
+	<button id="test_save" onclick="test_community()">test_community</button> <br />
+	<button id="test_save" onclick="test_community_list()">test_community_list</button> <br />
+</body>
+</html>
